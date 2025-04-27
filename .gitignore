@@ -1,0 +1,19 @@
+# Visual Studio temporary files
+.vs/
+*.ipch
+*.obj
+*.exe
+*.pdb
+*.user
+*.suo
+*.sln
+*.vcxproj
+*.vcxproj.filters
+
+# Compiled output
+Debug/
+Release/
+
+# Other temporary files
+*.log
+*.bak

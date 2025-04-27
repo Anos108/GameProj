@@ -1,0 +1,28 @@
+# depslib dependency file v1.0
+1745337858 source:s:\gameproject\main.cpp
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	<SDL_ttf.h>
+	<vector>
+	<cmath>
+	<cstdlib>
+	<algorithm>
+	<ctime>
+	<iostream>
+	"def.h"
+	"logic.h"
+	"map.h"
+	"keyboard.h"
+
+1745332446 s:\gameproject\def.h
+
+1745337707 s:\gameproject\logic.h
+	"map.h"
+	"def.h"
+
+1745332385 s:\gameproject\map.h
+	"logic.h"
+
+1745333120 s:\gameproject\keyboard.h
+
