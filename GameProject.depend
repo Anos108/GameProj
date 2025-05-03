@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1745337858 source:s:\gameproject\main.cpp
+1746245366 source:s:\gameproject\main.cpp
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_mixer.h>
@@ -15,14 +15,14 @@
 	"map.h"
 	"keyboard.h"
 
-1745332446 s:\gameproject\def.h
+1746245366 s:\gameproject\def.h
 
-1745337707 s:\gameproject\logic.h
+1746245782 s:\gameproject\logic.h
 	"map.h"
 	"def.h"
 
-1745332385 s:\gameproject\map.h
+1746245444 s:\gameproject\map.h
 	"logic.h"
 
-1745333120 s:\gameproject\keyboard.h
+1746245750 s:\gameproject\keyboard.h
 

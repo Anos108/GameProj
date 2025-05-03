@@ -1,10 +1,11 @@
 #ifndef _DEF__H
 #define _DEF__H
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 600;
+const int SCREEN_WIDTH = 1000;
+const int SCREEN_HEIGHT = 800;
 const float GRAVITY = 0.2f;
 
-struct Car {
+struct Car
+{
     float x, y;
     float velocityX, velocityY;
     float angle;
@@ -17,16 +18,19 @@ struct Car {
     float hesomasat = 0.97f;
     float max_speed = 6.0f;
 };
-struct FuelCan {
+struct FuelCan
+{
     float x, y;
     SDL_Texture* fuelCanTexture;
 };
 
-struct Terrain {
+struct Terrain
+{
     std::vector<SDL_Point> points;
 };
 
-struct Obstacle {
+struct Obstacle
+{
     float x, y;
     int width, height;
     SDL_Texture* obstacleTexture;
@@ -39,7 +43,6 @@ SDL_Texture* backgroundTexture = nullptr;
 SDL_Texture* terrainTexture = nullptr;
 SDL_Texture* grassTexture = nullptr;
 Mix_Music* backgroundMusic = nullptr;
-Mix_Chunk* engineSound = nullptr;
 SDL_Texture* gameOverTexture = nullptr;
 SDL_Rect gameOverRect;
 Car car;
@@ -50,6 +53,8 @@ Obstacle obstacle;
 std::vector<Obstacle> obstacles;
 std::vector<FuelCan> fuelCans;
 bool gameover = false;
+Uint32 spacePressStartTime = 0;
+bool isSpacePressed = false;
 
 int score = 0;
 TTF_Font* font = nullptr;
