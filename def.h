@@ -16,7 +16,7 @@ struct Car
     float acceleration_power = 0.08f;
     float braking_power = 0.1f;
     float hesomasat = 0.97f;
-    float max_speed = 6.0f;
+    float max_speed = 180.0f;
 };
 struct FuelCan
 {

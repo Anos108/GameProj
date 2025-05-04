@@ -30,12 +30,12 @@ void updateObstacles()
             score += 1;
             obs.passed = true;
 
-            if (score % 5 == 0 && score > lastScoreMilestone)
+            if (score % 2 == 0 && score > lastScoreMilestone)
             {
                 lastScoreMilestone = score;
                 car.max_speed += 5.0f;
                 car.max_speed = std::min(car.max_speed, 150.0f);
-
+                SDL_Log("Speed has increased 5.");
             }
         }
     }
@@ -45,33 +45,36 @@ void updateObstacles()
 
 void createFuelCans()
 {
-    srand(time(NULL));
-    int random = rand() % 100;
-    if (random < 35)
+
+
+    for (int i = 0; i < 5; ++i)
     {
-        for (int i = 0; i < 5; ++i)
-        {
-            int spawnX = 700 * (i + 1);
-            int spawnHeight = terrain.points.back().y - 40;
-            fuelCans.push_back({(float)spawnX, (float)spawnHeight, fuelCan.fuelCanTexture});
-        }
-    }
-}
-void updateFuelCans()
-{
-    if (!fuelCans.empty() && car.x > fuelCans.back().x - SCREEN_WIDTH)
-    {
-        int spawnX = fuelCans.back().x + 300;
+        int spawnX = 700 * (i + 1);
         int spawnHeight = terrain.points.back().y - 40;
         fuelCans.push_back({(float)spawnX, (float)spawnHeight, fuelCan.fuelCanTexture});
     }
 
-    fuelCans.erase(std::remove_if(fuelCans.begin(), fuelCans.end(),
-                                  [](const FuelCan& fuelCan)
+}
+void updateFuelCans()
+{
+    srand(time(NULL));
+    int random = rand() % 100;
+    if (random < 65)
     {
-        return fuelCan.x < car.x - SCREEN_WIDTH;
-    }),
-    fuelCans.end());
+
+        if (!fuelCans.empty() && car.x > fuelCans.back().x - SCREEN_WIDTH)
+        {
+            int spawnX = fuelCans.back().x + 300;
+            int spawnHeight = terrain.points.back().y - 40;
+            fuelCans.push_back({(float)spawnX, (float)spawnHeight, fuelCan.fuelCanTexture});
+        }
+
+        fuelCans.erase(std::remove_if(fuelCans.begin(), fuelCans.end(),
+                                      [](const FuelCan& fuelCan)
+        {
+            return fuelCan.x < car.x - SCREEN_WIDTH;
+        }),fuelCans.end());
+    }
 }
 
 void checkFuelPickup()
