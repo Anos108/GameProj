@@ -6,9 +6,9 @@
 *.pdb
 *.user
 *.suo
-*.sln
-*.vcxproj
-*.vcxproj.filters
+!*.sln
+!*.vcxproj
+!*.vcxproj.filters
 
 # Compiled output
 Debug/
