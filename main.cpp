@@ -79,13 +79,58 @@ void render()
             SDL_RenderCopyEx(renderer, grassTexture, nullptr, &grassRect, angle, nullptr, SDL_FLIP_NONE);
         }
     }
-    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-    std::vector<SDL_Point> visiblePoints;
-    for (auto& point : terrain.points)
+    // Draw road
+    const int roadWidth = 50;
+    const int roadHeight = 8;
+    SDL_SetRenderDrawColor(renderer, 60, 60, 60, 255); // Dark gray for road
+    for (size_t i = 0; i < terrain.points.size() - 1; ++i)
     {
-        visiblePoints.push_back({point.x - cameraX, point.y});
+        int x1 = terrain.points[i].x - cameraX;
+        int y1 = terrain.points[i].y;
+        int x2 = terrain.points[i + 1].x - cameraX;
+        int y2 = terrain.points[i + 1].y;
+        
+        float dx = x2 - x1;
+        float dy = y2 - y1;
+        float angle = atan2(dy, dx) * 180 / M_PI;
+        float segmentLength = sqrt(dx * dx + dy * dy);
+        
+        // Draw road as filled rectangles along the terrain
+        for (float dist = 0; dist < segmentLength; dist += roadWidth / 2)
+        {
+            float t = dist / segmentLength;
+            int x = terrain.points[i].x + t * dx;
+            int y = terrain.points[i].y + t * dy;
+            SDL_Rect roadRect = {x - cameraX - roadWidth / 2, y - roadHeight / 2, roadWidth, roadHeight};
+            SDL_RenderFillRect(renderer, &roadRect);
+        }
     }
-    SDL_RenderDrawLines(renderer, visiblePoints.data(), visiblePoints.size());
+    
+    // Draw road center line (dashed yellow line)
+    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // Yellow
+    for (size_t i = 0; i < terrain.points.size() - 1; ++i)
+    {
+        int x1 = terrain.points[i].x - cameraX;
+        int y1 = terrain.points[i].y;
+        int x2 = terrain.points[i + 1].x - cameraX;
+        int y2 = terrain.points[i + 1].y;
+        
+        float dx = x2 - x1;
+        float dy = y2 - y1;
+        float segmentLength = sqrt(dx * dx + dy * dy);
+        
+        // Draw dashed line
+        for (float dist = 0; dist < segmentLength; dist += 20)
+        {
+            float t1 = dist / segmentLength;
+            float t2 = std::min((dist + 10) / segmentLength, 1.0f);
+            int lineX1 = terrain.points[i].x + t1 * dx - cameraX;
+            int lineY1 = terrain.points[i].y + t1 * dy;
+            int lineX2 = terrain.points[i].x + t2 * dx - cameraX;
+            int lineY2 = terrain.points[i].y + t2 * dy;
+            SDL_RenderDrawLine(renderer, lineX1, lineY1, lineX2, lineY2);
+        }
+    }
 
     int carWidth = 40, carHeight = 20, wheelSize = 10;
     int frontWheelOffsetX = 12, rearWheelOffsetX = -13, wheelOffsetY = -4;
